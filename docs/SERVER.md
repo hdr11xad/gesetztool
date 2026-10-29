@@ -290,6 +290,60 @@ Prüfanfragen), mit Änderungen kommen 1–2 Minuten Erzeugen dazu.
 
 ---
 
+## Normfinder vom Netz nehmen
+
+Nimmt `/normfinder/` von der Website, ohne Unterbrechung für WordPress,
+Nextcloud und die Status-Seite. Die erzeugten Daten unter `/srv/normfinder`
+bleiben erhalten; zurück geht es mit Abschnitt 5.3/5.4.
+
+Caddyfile sichern:
+
+```bash
+sudo cp -a /opt/stacks/caddy/conf/Caddyfile /opt/stacks/caddy/conf/Caddyfile.mit-normfinder-$(date +%Y%m%d-%H%M)
+```
+
+Den Normfinder-Block entfernen (alles von `# ---------- Normfinder` bis
+`# ---------- Ende Normfinder ----------`, die WordPress-Zeile bleibt):
+
+```bash
+sudo sed -i '/# ---------- Normfinder/,/# ---------- Ende Normfinder ----------/d' /opt/stacks/caddy/conf/Caddyfile
+```
+
+Kontrollieren – im Block für `fsr-jura-halle.de` steht nur noch `reverse_proxy localhost:8081`:
+
+```bash
+sudo cat /opt/stacks/caddy/conf/Caddyfile
+```
+
+Prüfen und ohne Neustart übernehmen:
+
+```bash
+sudo docker exec caddy caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile
+```
+
+```bash
+sudo docker exec caddy caddy reload --config /etc/caddy/Caddyfile --adapter caddyfile
+```
+
+Test: `/normfinder/` beantwortet jetzt WordPress (404), die Website selbst läuft:
+
+```bash
+curl -s -o /dev/null -w '%{http_code}\n' https://fsr-jura-halle.de/normfinder/
+```
+
+```bash
+curl -s -o /dev/null -w '%{http_code}\n' https://fsr-jura-halle.de/
+```
+
+Optional:
+
+- Nächtliche Aktualisierung anhalten (sonst läuft sie weiter, ist aber unsichtbar):
+  `sudo systemctl disable --now normfinder-update.timer` – und in Uptime Kuma
+  den Push-Monitor pausieren, sonst meldet er nach 26 Stunden „down“.
+- Die Volume-Zeile `/srv/normfinder:/srv/normfinder:ro` in `compose.yaml`
+  kann bleiben (schadet nicht). Wer sie entfernt, muss den Container mit
+  `docker compose up -d` neu erstellen (kurze Unterbrechung aller Seiten).
+
 ## Datenschutz: Server-Logs
 
 **Normfinder:** Der Caddy-Block enthält `log_skip`. Aufrufe unter
