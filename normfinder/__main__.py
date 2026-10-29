@@ -47,11 +47,11 @@ def setup_logging(root: Path | None, verbose: bool):
 
 def notify(ok: bool, msg: str):
     """Meldung an Uptime Kuma (Push-Monitor) und optional per Mail über sendmail."""
-    push = os.environ.get("NORMFINDER_PUSH_URL")
+    push = os.environ.get("NORMFINDER_PUSH_URL", "").split("?")[0]  # Kuma zeigt die URL mit ?status=up… an
     if push:
         q = urllib.parse.urlencode({"status": "up" if ok else "down", "msg": msg[:200], "ping": ""})
         try:
-            urllib.request.urlopen(f"{push}{'&' if '?' in push else '?'}{q}", timeout=20).read()
+            urllib.request.urlopen(f"{push}?{q}", timeout=20).read()
         except Exception as e:  # noqa: BLE001
             log.warning("Uptime-Kuma-Meldung fehlgeschlagen: %s", e)
     mail = os.environ.get("NORMFINDER_MAIL")

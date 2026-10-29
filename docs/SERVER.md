@@ -53,7 +53,8 @@ wenn sich der Normfinder gar nicht meldet.
 2. *Neuen Monitor hinzufügen* → Typ **Push**, Name „Normfinder Update“.
 3. **Heartbeat-Intervall: 93600 Sekunden** (26 Stunden), Wiederholungen: 0.
 4. Benachrichtigung (Mail) auswählen, speichern.
-5. Die angezeigte Push-URL kopieren. Den Teil nach `/api/push/` brauchst du gleich.
+5. Die angezeigte Push-URL kopieren. Den Teil ab `?` (`?status=up&msg=OK&ping=`)
+   kannst du weglassen – der Normfinder ignoriert ihn ohnehin.
 
 Push-URL eintragen (Kuma läuft auf demselben Server, daher `127.0.0.1:3001`):
 
@@ -168,6 +169,15 @@ docker exec caddy caddy validate --config /etc/caddy/Caddyfile --adapter caddyfi
 
 Erwartet: `Valid configuration`. Bei einer Fehlermeldung nichts weiter tun und
 mir die Meldung schicken.
+
+> Ist das Caddyfile als **einzelne Datei** eingebunden (5.1 zeigt
+> `…/Caddyfile -> /etc/caddy/Caddyfile`), sieht der laufende Container eine mit
+> manchen Editoren gespeicherte Änderung erst nach dem Neuerstellen. Dann so
+> prüfen – ein Wegwerf-Container mit demselben Image, der nichts startet:
+>
+> ```bash
+> docker run --rm -v /opt/stacks/caddy/Caddyfile:/etc/caddy/Caddyfile:ro caddy:2 caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile
+> ```
 
 Container mit dem neuen Volume neu erstellen (kurze Unterbrechung von wenigen
 Sekunden für alle Seiten, auch Nextcloud):
