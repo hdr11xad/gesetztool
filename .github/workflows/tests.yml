@@ -1,0 +1,25 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Python-Unit-Tests (XML-Parser, Satzerkennung, Verweise, Build)
+        run: python3 -m unittest discover -s tests -t . -v
+      - name: Parser-Tests (Node)
+        run: npm test
+      - name: Playwright installieren
+        run: npm install --no-save playwright@1.48.2 && npx playwright install --with-deps chromium
+      - name: End-to-End-Tests
+        run: npm run test:e2e

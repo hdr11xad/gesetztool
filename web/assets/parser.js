@@ -173,7 +173,7 @@ export function parseQuery(raw, { registry = null, contextLaw = null } = {}) {
       else if (want === "lit" ? /^[a-z]{1,2}$/.test(tok) : /^\d+[a-z]?$/.test(tok)) { r[want] = tok; continue; }
       else if (want === "abs" && ROMAN[tok]) { r.abs = String(ROMAN[tok]); continue; }
     }
-    if (r.num === null && /^\d+[a-z]{0,2}$/.test(tok)) { r.num = tok; continue; }
+    if (r.num === null && /^\d+(?:\.\d+)*[a-z]{0,2}$/.test(tok)) { r.num = tok; continue; }
     if (artPara && /^\d+[a-z]?$/.test(tok)) { r.num = r.num + "-" + tok; artPara = false; continue; }
     if (r.num !== null) {
       if (KEY[tok]) { expect = KEY[tok]; continue; }

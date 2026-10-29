@@ -436,6 +436,7 @@ function init() {
   });
 
   const btn = document.querySelector(".theme-btn");
+  if (btn) btn.hidden = false;
   if (btn) btn.addEventListener("click", () => {
     const dark = getComputedStyle(document.documentElement).colorScheme.includes("dark");
     const next = dark ? "light" : "dark";

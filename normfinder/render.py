@@ -273,7 +273,7 @@ class Site:
         stand = "".join(f"<li><b>{esc(t)}:</b> {esc(c)}</li>" for t, c in law.stand)
         notes = ""
         if law.notes:
-            notes = '<details class="notes"><summary>Hinweise zum Textnachweis</summary>' + "".join(
+            notes = f'<details class="notes"{" open" if not law.norms else ""}><summary>Hinweise zum Textnachweis</summary>' + "".join(
                 f"<p>{esc(t)}</p>" for t in law.notes) + "</details>"
         gone = sum(1 for x in law.norms if x.gone)
         full = law.title if law.title != info.abk else law.short

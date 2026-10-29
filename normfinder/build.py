@@ -255,11 +255,11 @@ def laws_json(reg, slugs) -> str:
             keys.add(laws.norm_key(a))
         keys.add(laws.norm_key(i.slug))
         keys.discard(laws.norm_key(i.abk))
-        names = [n.lower() for n in i.names if len(n) <= 90]
+        names = [n.lower() for n in i.names if len(n) <= 70]
         title = render.short_name(i) if i.core else (i.short or i.title)
         if len(title) > 110:
             title = title[:107] + "…"
-        rows.append([i.url, i.abk, title, "a" if i.sign == "Art." else "p", sorted(keys), names[:4],
+        rows.append([i.url, i.abk, title, "a" if i.sign == "Art." else "p", sorted(keys), names[:3],
                      groups.get(i.core, -1), i.count])
     return json.dumps(rows, ensure_ascii=False, separators=(",", ":"))
 

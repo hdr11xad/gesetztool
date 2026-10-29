@@ -474,6 +474,13 @@ def describe(enbez: str) -> tuple[str, str, str, list, str]:
     """→ (kind, id, label, covers, sign) aus der Einzelnormbezeichnung."""
     e = clean(enbez.replace(" ", " "))
     e = re.sub(r"^\(XXXX\)\s*", "", e)
+    e = re.sub(r"\b(bis|und|u\.|,)\s*(?:Art(?:ikel|\.)?|§§?)\s*(?=\d)", r"\1 ", e)  # „Art 5 bis Art 7“
+    if not e:
+        return "x", "text", "", [], ""
+    m = re.fullmatch(r"§\s*(\d+(?:\.\d+)+[a-z]{0,2})", e, re.I)  # „§ 1.01“ (Binnenschifffahrt u. a.)
+    if m:
+        n = m.group(1).lower()
+        return "p", n, f"§ {n}", [], "§"
     m = re.fullmatch(r"§\s*(\d+[a-z]{0,2})(?:\s*\.)?", e, re.I)
     if m:
         n = m.group(1).lower()
@@ -602,6 +609,9 @@ def parse_law(slug: str, data: bytes, images: dict | None = None) -> Law:
                 text_el is not None and text_el.find("TOC") is not None):
             continue
         kind, nid, label, covers, sign = describe(enbez)
+        if not label:
+            label = title or "Text"
+            nid = slugify(label) or "text"
         if title and re.match(r"^\(?XXXX\)?$", title):
             title = ""
         blocks = builder.blocks(content) if content is not None else []

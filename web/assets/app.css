@@ -408,7 +408,9 @@ html.js .theme-btn[hidden] { display: grid; }
   .items > li { grid-template-columns: 2.2em minmax(0, 1fr); }
   .norm-head .num { font-size: 2rem; }
   .norm-head .tt { font-size: 1.375rem; }
-  .abs, .items > li, .sz { scroll-margin-top: 150px; }
+  .site-head { position: static; }
+  .abs, .items > li, .sz { scroll-margin-top: 24px; }
+  .rail { top: 16px; }
   .sugg li { flex-wrap: wrap; gap: 0 10px; }
   .sugg .k { min-width: 0; }
   .sugg .t { white-space: normal; flex-basis: 100%; }
