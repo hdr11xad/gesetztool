@@ -225,10 +225,7 @@ class Box {
     // Explizit gewählter Vorschlag (Pfeiltasten) hat Vorrang
     if (!this.box.hidden && this.items.length && this.sel >= 0 && this.moved) return this.choose(this.sel);
     const r = parseQuery(raw, { registry: await regReady().catch(() => null), contextLaw: CTX_LAW });
-    if (r.type === "pick") {
-      if (!this.box.hidden && this.sel >= 0 && this.items[this.sel] && this.items[this.sel].href) return this.choose(this.sel);
-      return goSearchPage(raw);
-    }
+    if (r.type === "pick") return goSearchPage(raw); // nicht raten: Auswahlseite
     if (r.type === "lsa") return goSearchPage(raw);
     this.close();
     go(raw, r);

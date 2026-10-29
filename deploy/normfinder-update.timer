@@ -1,0 +1,11 @@
+[Unit]
+Description=Normfinder nächtlich aktualisieren
+
+[Timer]
+# gesetze-im-internet.de baut gegen 22 Uhr neu; nachts um ca. 3:40 Uhr holen
+OnCalendar=*-*-* 03:40:00
+RandomizedDelaySec=20min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

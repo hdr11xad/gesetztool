@@ -73,7 +73,7 @@ class Site:
 <title>{esc(title)}</title>
 {desc}{robots}
 <link rel="canonical" href="{esc(SITE + canonical)}">
-<link rel="icon" href="{self.asset('logo.svg')}" type="image/svg+xml">
+<link rel="icon" href="{self.asset('icon.svg')}" type="image/svg+xml">
 <link rel="preload" href="{self.base}assets/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{self.asset('app.css')}">
 <meta name="color-scheme" content="light dark">

@@ -1,0 +1,42 @@
+# Normfinder in Caddy – diese Zeilen kommen in den bestehenden Block für fsr-jura-halle.de,
+# VOR die Weiterleitung an WordPress (reverse_proxy). Anleitung: docs/SERVER.md
+#
+# Voraussetzung: Der Caddy-Container sieht /srv/normfinder (Volume, nur lesend):
+#     volumes:
+#       - /srv/normfinder:/srv/normfinder:ro
+
+	# ---------- Normfinder (statische Seiten, eigenständig neben WordPress) ----------
+	redir /normfinder /normfinder/ 308
+	handle /normfinder/* {
+		# Normfinder-Aufrufe nicht protokollieren (keine IP-Adressen)
+		log_skip
+		root * /srv/normfinder/current
+		uri strip_prefix /normfinder
+		try_files {path} {path}.html {path}/index.html
+		encode zstd gzip
+		header {
+			Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'self'"
+			X-Content-Type-Options "nosniff"
+			Referrer-Policy "strict-origin-when-cross-origin"
+			Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+			-Server
+		}
+		# Hinweis: header greift vor „uri strip_prefix“, daher die vollen Pfade
+		@assets path /normfinder/assets/*
+		header @assets Cache-Control "public, max-age=31536000, immutable"
+		@pages not path /normfinder/assets/*
+		header @pages Cache-Control "public, max-age=600"
+		file_server {
+			hide .* build.json
+		}
+	}
+	# Eigene 404-Seite für Adressen unter /normfinder/
+	handle_errors 404 {
+		@normfinder expression `{http.request.orig_uri.path}.startsWith("/normfinder/")`
+		handle @normfinder {
+			root * /srv/normfinder/current
+			rewrite * /404.html
+			file_server
+		}
+	}
+	# ---------- Ende Normfinder ----------

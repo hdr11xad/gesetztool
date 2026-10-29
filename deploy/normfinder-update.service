@@ -1,0 +1,32 @@
+[Unit]
+Description=Normfinder: Gesetze von gesetze-im-internet.de laden und Seiten erzeugen
+Documentation=file:///opt/normfinder/README.md
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=normfinder
+Group=normfinder
+WorkingDirectory=/opt/normfinder
+EnvironmentFile=/etc/normfinder.env
+ExecStart=/usr/bin/python3 -m normfinder update
+# Freundlich zu WordPress und Nextcloud: niedrige Priorität für CPU und Platte
+Nice=15
+IOSchedulingClass=idle
+CPUWeight=20
+MemoryHigh=3G
+MemoryMax=5G
+TimeoutStartSec=3h
+# Härtung: Schreibzugriff nur auf das Datenverzeichnis
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+ReadWritePaths=/srv/normfinder
+UMask=0022

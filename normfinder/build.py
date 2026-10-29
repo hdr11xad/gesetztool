@@ -120,6 +120,17 @@ def _render_law(slug: str):
 
 # ---------------------------------------------------------------- Build
 
+def code_version() -> str:
+    """Prüfsumme über Code, Oberfläche und Datenlisten – ändert sie sich, wird neu erzeugt."""
+    h = hashlib.sha1()
+    for base in (ROOT / "normfinder", WEB / "assets", ROOT / "data"):
+        for p in sorted(base.rglob("*")):
+            if p.is_file() and "__pycache__" not in p.parts:
+                h.update(p.relative_to(ROOT).as_posix().encode())
+                h.update(p.read_bytes())
+    return h.hexdigest()[:12]
+
+
 def asset_version() -> str:
     h = hashlib.sha1()
     for p in sorted((WEB / "assets").rglob("*")):
@@ -210,7 +221,7 @@ def build(cache: Path, root: Path, *, base: str = "/normfinder/", only: list[str
     sitemaps(out, w, site, reg, ok_laws)
 
     norms = sum(r.get("norms", 0) for r in results)
-    stats = {"stamp": stamp, "laws": len(ok_laws), "norms": norms, "errors": errors,
+    stats = {"stamp": stamp, "code": code_version(), "laws": len(ok_laws), "norms": norms, "errors": errors,
              "fts": fts_stats, "secs": round(time.time() - t0), "fetched": fetched,
              "written": w.written + sum(r.get("written", 0) for r in results),
              "linked": w.linked + sum(r.get("linked", 0) for r in results), "partial": bool(only)}

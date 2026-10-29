@@ -7,12 +7,15 @@ gültiges ZIP öffnen lässt.
 """
 from __future__ import annotations
 
+import http.client
 import json
 import logging
 import os
 import re
+import ssl
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 import zipfile
@@ -71,35 +74,63 @@ class Fetcher:
             time.sleep(self.interval - delta)
         self._last = time.monotonic()
 
+    def _conn(self, host: str) -> http.client.HTTPSConnection:
+        """Eine dauerhafte Verbindung (Keep-Alive) statt tausender Einzelverbindungen."""
+        if getattr(self, "_c", None) is None or self._c_host != host:
+            ctx = ssl.create_default_context()
+            proxy = urllib.request.getproxies().get("https")
+            if proxy and not urllib.request.proxy_bypass(host):  # Tunnel über HTTP-Proxy (CONNECT)
+                pu = urllib.parse.urlsplit(proxy)
+                c = http.client.HTTPSConnection(pu.hostname, pu.port or 80, timeout=self.timeout, context=ctx)
+                c.set_tunnel(host, 443)
+            else:
+                c = http.client.HTTPSConnection(host, 443, timeout=self.timeout, context=ctx)
+            self._c, self._c_host = c, host
+        return self._c
+
+    def _drop(self):
+        try:
+            if getattr(self, "_c", None) is not None:
+                self._c.close()
+        finally:
+            self._c = None
+
     def get(self, url: str, key: str) -> bytes | None:
         """Bedingter GET. Gibt neue Daten zurück, None bei 304 (unverändert)."""
         prev = self.meta.get(key, {})
-        headers = {"User-Agent": USER_AGENT}
+        headers = {"User-Agent": USER_AGENT, "Accept-Encoding": "identity"}
         if prev.get("etag"):
             headers["If-None-Match"] = prev["etag"]
         if prev.get("last_modified"):
             headers["If-Modified-Since"] = prev["last_modified"]
+        u = urllib.parse.urlsplit(url)
         err: Exception | None = None
         for attempt in range(self.retries):
             self._wait()
             try:
-                req = urllib.request.Request(url, headers=headers)
-                with urllib.request.urlopen(req, timeout=self.timeout) as r:
-                    data = r.read()
+                c = self._conn(u.hostname)
+                c.request("GET", u.path, headers=headers)
+                r = c.getresponse()
+                data = r.read()
+                if r.getheader("Connection", "").lower() == "close":
+                    self._drop()
+                if r.status == 304:
+                    return None
+                if r.status == 200:
                     self.meta[key] = {
-                        "etag": r.headers.get("ETag"),
-                        "last_modified": r.headers.get("Last-Modified"),
+                        "etag": r.getheader("ETag"),
+                        "last_modified": r.getheader("Last-Modified"),
                         "fetched": time.strftime("%Y-%m-%dT%H:%M:%S"),
                     }
                     return data
-            except urllib.error.HTTPError as e:
-                if e.code == 304:
-                    return None
-                if e.code == 404:
-                    raise
+                if r.status == 404:
+                    raise urllib.error.HTTPError(url, 404, "Not Found", r.headers, None)
+                err = RuntimeError(f"HTTP {r.status}")
+            except urllib.error.HTTPError:
+                raise
+            except (http.client.HTTPException, TimeoutError, ConnectionError, OSError) as e:
                 err = e
-            except (urllib.error.URLError, TimeoutError, ConnectionError, OSError) as e:
-                err = e
+                self._drop()
             wait = 2 ** (attempt + 1)
             log.warning("%s: Versuch %d fehlgeschlagen (%s), warte %ds", url, attempt + 1, err, wait)
             time.sleep(wait)

@@ -80,7 +80,9 @@ def cmd_update(a):
         f.run()
         if f.stats["failed"] > 200:
             raise B.BuildError(f"{f.stats['failed']} Downloads fehlgeschlagen")
-        if f.stats["updated"] == 0 and f.stats["removed"] == 0 and (root / "current").exists() and not a.force:
+        cur = root / "current" / "build.json"
+        same_code = cur.exists() and json.loads(cur.read_text()).get("code") == B.code_version()
+        if f.stats["updated"] == 0 and f.stats["removed"] == 0 and same_code and not a.force:
             log.info("Keine Änderungen – der aktuelle Stand bleibt.")
             notify(True, "keine Änderungen")
             return 0
