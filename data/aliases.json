@@ -1,0 +1,315 @@
+{
+ "_hinweis": "Zusätzliche Namen und Abkürzungen je Gesetz (Schlüssel = Kennung auf gesetze-im-internet.de). Amtliche und juris-Abkürzungen sowie die Titel aus den XML-Daten werden automatisch übernommen; hier stehen nur Ergänzungen aus der Studienpraxis. Groß-/Kleinschreibung egal.",
+ "bgb": [
+  "Bürgerliches Gesetzbuch"
+ ],
+ "bgbeg": [
+  "EGBGB",
+  "EG BGB",
+  "Einführungsgesetz zum BGB",
+  "Einführungsgesetz zum Bürgerlichen Gesetzbuch"
+ ],
+ "hgb": [
+  "Handelsgesetzbuch"
+ ],
+ "gmbhg": [
+  "GmbH-Gesetz",
+  "GmbH Gesetz"
+ ],
+ "aktg": [
+  "Aktiengesetz"
+ ],
+ "zpo": [
+  "Zivilprozessordnung"
+ ],
+ "gvg": [
+  "Gerichtsverfassungsgesetz"
+ ],
+ "famfg": [
+  "FamFG"
+ ],
+ "stvg": [
+  "Straßenverkehrsgesetz"
+ ],
+ "prodhaftg": [
+  "Produkthaftungsgesetz",
+  "ProdHG"
+ ],
+ "woeigg": [
+  "WEG",
+  "WoEigG",
+  "Wohnungseigentumsgesetz"
+ ],
+ "kschg": [
+  "Kündigungsschutzgesetz"
+ ],
+ "tzbfg": [
+  "Teilzeit- und Befristungsgesetz",
+  "TzBefrG"
+ ],
+ "betrvg": [
+  "Betriebsverfassungsgesetz"
+ ],
+ "arbgg": [
+  "Arbeitsgerichtsgesetz"
+ ],
+ "stgb": [
+  "Strafgesetzbuch"
+ ],
+ "stpo": [
+  "Strafprozessordnung"
+ ],
+ "jgg": [
+  "Jugendgerichtsgesetz"
+ ],
+ "btmg_1981": [
+  "BtMG",
+  "Betäubungsmittelgesetz"
+ ],
+ "gg": [
+  "Grundgesetz"
+ ],
+ "bverfgg": [
+  "Bundesverfassungsgerichtsgesetz"
+ ],
+ "vwgo": [
+  "Verwaltungsgerichtsordnung"
+ ],
+ "vwvfg": [
+  "Verwaltungsverfahrensgesetz",
+  "VwVfG Bund"
+ ],
+ "vwzg_2005": [
+  "VwZG",
+  "Verwaltungszustellungsgesetz"
+ ],
+ "bbaug": [
+  "BauGB",
+  "Baugesetzbuch"
+ ],
+ "baunvo": [
+  "Baunutzungsverordnung"
+ ],
+ "bimschg": [
+  "Bundes-Immissionsschutzgesetz",
+  "Immissionsschutzgesetz"
+ ],
+ "gewo": [
+  "Gewerbeordnung"
+ ],
+ "stvo_2013": [
+  "StVO",
+  "Straßenverkehrs-Ordnung",
+  "Straßenverkehrsordnung"
+ ],
+ "inso": [
+  "Insolvenzordnung"
+ ],
+ "agg": [
+  "Allgemeines Gleichbehandlungsgesetz"
+ ],
+ "gwb": [
+  "Gesetz gegen Wettbewerbsbeschränkungen",
+  "Kartellgesetz"
+ ],
+ "urhg": [
+  "Urheberrechtsgesetz"
+ ],
+ "owig_1968": [
+  "OWiG",
+  "Ordnungswidrigkeitengesetz"
+ ],
+ "bdsg_2018": [
+  "BDSG",
+  "Bundesdatenschutzgesetz"
+ ],
+ "vvg_2008": [
+  "VVG",
+  "Versicherungsvertragsgesetz"
+ ],
+ "beurkg": [
+  "Beurkundungsgesetz"
+ ],
+ "zvg": [
+  "Zwangsversteigerungsgesetz"
+ ],
+ "rpflg": [
+  "Rechtspflegergesetz"
+ ],
+ "pflvg": [
+  "Pflichtversicherungsgesetz"
+ ],
+ "uklag": [
+  "Unterlassungsklagengesetz"
+ ],
+ "gbo": [
+  "Grundbuchordnung"
+ ],
+ "erbbaurg": [
+  "ErbbauRG",
+  "Erbbaurechtsgesetz"
+ ],
+ "lpartg": [
+  "Lebenspartnerschaftsgesetz"
+ ],
+ "vereinsg": [
+  "Vereinsgesetz"
+ ],
+ "versammlg": [
+  "Versammlungsgesetz",
+  "VersG"
+ ],
+ "bpolg": [
+  "Bundespolizeigesetz"
+ ],
+ "irg": [
+  "Gesetz über die internationale Rechtshilfe in Strafsachen"
+ ],
+ "wstg": [
+  "Wehrstrafgesetz"
+ ],
+ "vstgb": [
+  "Völkerstrafgesetzbuch"
+ ],
+ "awg_2013": [
+  "AWG",
+  "Außenwirtschaftsgesetz"
+ ],
+ "partg": [
+  "Parteiengesetz"
+ ],
+ "bwahlg": [
+  "Bundeswahlgesetz"
+ ],
+ "bbg_2009": [
+  "BBG",
+  "Bundesbeamtengesetz"
+ ],
+ "beamtstg": [
+  "Beamtenstatusgesetz"
+ ],
+ "ifg": [
+  "Informationsfreiheitsgesetz"
+ ],
+ "uig_2005": [
+  "UIG",
+  "Umweltinformationsgesetz"
+ ],
+ "uvpg": [
+  "UVP-Gesetz",
+  "Gesetz über die Umweltverträglichkeitsprüfung"
+ ],
+ "bnatschg_2009": [
+  "BNatSchG",
+  "Bundesnaturschutzgesetz"
+ ],
+ "krwg": [
+  "Kreislaufwirtschaftsgesetz"
+ ],
+ "whg_2009": [
+  "WHG",
+  "Wasserhaushaltsgesetz"
+ ],
+ "rog_2008": [
+  "ROG",
+  "Raumordnungsgesetz"
+ ],
+ "aufenthg_2004": [
+  "AufenthG",
+  "Aufenthaltsgesetz"
+ ],
+ "asylvfg_1992": [
+  "AsylG",
+  "Asylgesetz"
+ ],
+ "sgb_1": [
+  "SGB I"
+ ],
+ "sgb_2": [
+  "SGB II",
+  "Bürgergeld"
+ ],
+ "sgb_3": [
+  "SGB III"
+ ],
+ "sgb_4": [
+  "SGB IV"
+ ],
+ "sgb_5": [
+  "SGB V"
+ ],
+ "sgb_6": [
+  "SGB VI"
+ ],
+ "sgb_7": [
+  "SGB VII"
+ ],
+ "sgb_8": [
+  "SGB VIII"
+ ],
+ "sgb_9_2018": [
+  "SGB IX"
+ ],
+ "sgb_10": [
+  "SGB X"
+ ],
+ "sgb_11": [
+  "SGB XI"
+ ],
+ "sgb_12": [
+  "SGB XII"
+ ],
+ "sgb_14": [
+  "SGB XIV"
+ ],
+ "ao_1977": [
+  "AO",
+  "Abgabenordnung"
+ ],
+ "estg": [
+  "Einkommensteuergesetz"
+ ],
+ "ustg_1980": [
+  "UStG",
+  "Umsatzsteuergesetz"
+ ],
+ "uwg_2004": [
+  "UWG",
+  "Gesetz gegen den unlauteren Wettbewerb"
+ ],
+ "markeng": [
+  "Markengesetz"
+ ],
+ "patg": [
+  "Patentgesetz"
+ ],
+ "kunsturhg": [
+  "KUG",
+  "KunstUrhG",
+  "Kunsturhebergesetz"
+ ],
+ "ddg": [
+  "Digitale-Dienste-Gesetz"
+ ],
+ "ttdsg": [
+  "TDDDG",
+  "TTDSG"
+ ],
+ "rvg": [
+  "Rechtsanwaltsvergütungsgesetz"
+ ],
+ "gkg_2004": [
+  "GKG",
+  "Gerichtskostengesetz"
+ ],
+ "brao": [
+  "Bundesrechtsanwaltsordnung"
+ ],
+ "drig": [
+  "Deutsches Richtergesetz"
+ ],
+ "stag": [
+  "StAG",
+  "Staatsangehörigkeitsgesetz"
+ ]
+}

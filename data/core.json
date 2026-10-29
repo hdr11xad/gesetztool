@@ -1,0 +1,20 @@
+{
+  "_hinweis": "Kerngesetze für die Startseite und für Vorschläge, wenn eine Normnummer ohne Gesetz eingegeben wird. Schlüssel = Kennung auf gesetze-im-internet.de.",
+  "gruppen": [
+    {"name": "Zivilrecht", "gesetze": ["bgb", "bgbeg", "hgb", "gmbhg", "aktg", "zpo", "gvg", "famfg", "stvg", "prodhaftg", "woeigg", "kschg", "tzbfg", "betrvg", "arbgg"]},
+    {"name": "Strafrecht", "gesetze": ["stgb", "stpo", "jgg", "btmg_1981"]},
+    {"name": "Öffentliches Recht", "gesetze": ["gg", "bverfgg", "vwgo", "vwvfg", "vwzg_2005", "bbaug", "baunvo", "bimschg", "gewo", "stvo_2013"]}
+  ],
+  "vorschlag_reihenfolge": ["bgb", "stgb", "gg", "zpo", "stpo", "hgb", "vwgo", "vwvfg", "bgbeg", "gvg", "famfg", "gmbhg", "aktg", "bbaug", "baunvo", "bimschg", "gewo", "kschg", "tzbfg", "betrvg", "arbgg", "stvg", "prodhaftg", "woeigg", "jgg", "btmg_1981", "bverfgg", "vwzg_2005", "stvo_2013"],
+  "landesrecht": {
+    "name": "Landesrecht Sachsen-Anhalt",
+    "url": "https://www.landesrecht.sachsen-anhalt.de/",
+    "hinweis": "Sachsen-Anhalt stellt sein Landesrecht nicht als offene Daten bereit. Der Normfinder verlinkt deshalb auf das amtliche Landesrechtsportal.",
+    "gesetze": [
+      {"abk": "Verf LSA", "name": "Verfassung des Landes Sachsen-Anhalt", "aliase": ["verf lsa", "lverf lsa", "verfassung sachsen-anhalt", "verfassung des landes sachsen-anhalt", "lsa verf"]},
+      {"abk": "SOG LSA", "name": "Gesetz über die öffentliche Sicherheit und Ordnung des Landes Sachsen-Anhalt", "aliase": ["sog lsa", "sog", "lsa sog"]},
+      {"abk": "KVG LSA", "name": "Kommunalverfassungsgesetz des Landes Sachsen-Anhalt", "aliase": ["kvg lsa", "kvg", "lsa kvg", "kommunalverfassungsgesetz"]},
+      {"abk": "BauO LSA", "name": "Bauordnung des Landes Sachsen-Anhalt", "aliase": ["bauo lsa", "bauo", "lsa bauo", "bauordnung sachsen-anhalt"]}
+    ]
+  }
+}
