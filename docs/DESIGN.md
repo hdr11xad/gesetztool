@@ -63,4 +63,11 @@ So bleibt der Normtext ruhig und bei der Hausschrift. Größe 19 px
 
 ## Screenshots
 
-`docs/screenshots/`: Startseite, Normseite (hell, dunkel, mobil), Suche.
+Aufgenommen mit dem vollständigen Bundesrecht (6.147 Gesetze):
+
+| | |
+|---|---|
+| ![Startseite](screenshots/startseite.png) | ![§ 573 BGB mit markierter Nr. 2](screenshots/norm-bgb-573.png) |
+| ![Art. 1 GG im Dunkelmodus](screenshots/norm-dunkel.png) | ![Vorschläge beim Tippen](screenshots/vorschlaege.png) |
+| ![Nummer ohne Gesetz: Auswahl](screenshots/nummer-ohne-gesetz.png) | ![Volltextsuche mit Filter](screenshots/volltext.png) |
+| ![Anlage mit Tabelle und Verkehrszeichen](screenshots/tabelle-anlage.png) | ![Mobil: § 204 Abs. 1 Nr. 4 lit. a BGB](screenshots/norm-mobil.png) |

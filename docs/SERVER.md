@@ -75,8 +75,9 @@ NORMFINDER_PUSH_URL=http://127.0.0.1:3001/api/push/AbCdEf123
 
 ## 4. Ersten Lauf starten
 
-Der erste Lauf lädt alle rund 6.100 Gesetze und Verordnungen (ca. 300 MB) und
-erzeugt die Seiten. Das dauert beim ersten Mal 30–60 Minuten. Die Website ist
+Der erste Lauf lädt alle rund 6.150 Gesetze und Verordnungen (ca. 320 MB) und
+erzeugt gut 108.000 Normseiten. Der Download dauert beim ersten Mal etwa
+30 Minuten (Rate-Limit), das Erzeugen selbst 1–2 Minuten. Die Website ist
 währenddessen nicht betroffen (niedrige CPU- und Plattenpriorität).
 
 ```bash
@@ -272,8 +273,10 @@ sudo systemctl start --no-block normfinder-update.service
 
 ### Speicherbedarf
 
-Cache ca. 300 MB, ein vollständiger Stand ca. 2–3 GB; weitere Stände belegen
-dank harter Links nur den Platz geänderter Dateien.
+Cache ca. 320 MB, ein vollständiger Stand ca. 1,7 GB (rund 132.000 Dateien);
+weitere Stände belegen dank harter Links nur den Platz geänderter Dateien.
+Ein nächtlicher Lauf ohne Änderungen dauert wenige Minuten (nur
+Prüfanfragen), mit Änderungen kommen 1–2 Minuten Erzeugen dazu.
 
 ---
 

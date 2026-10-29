@@ -60,8 +60,17 @@ def is_abbrev(s: str) -> bool:
     s = s.strip()
     if re.fullmatch(r"[A-ZÄÖÜ][\wÄÖÜäöü]* (?:[IVX]+|\d{4}|LSA|Bund)", s):
         return True
+    if (len(s) <= 14 and re.fullmatch(r"[A-ZÄÖÜ][\wÄÖÜäöü\-]*(?: [A-ZÄÖÜ0-9][\wÄÖÜäöü\-]*)?", s)
+            and not re.search(r"[a-zäöüß]{4,}", s)):
+        return True  # „EG BGB“, „VwVfG Bund“
     return (" " not in s and len(s) <= 12 and sum(c.isupper() for c in s) >= 2
             and not re.search(r"gesetz|ordnung|buch", s, re.I))
+
+
+def display_title(t: str) -> str:
+    """Titel ohne Mantelgesetz-Zusatz: „… - (Artikel 1 des Gesetzes v. 20. Dezember 1988 …)“."""
+    t = re.sub(r"\s*[-–]?\s*\((?:Artikel|Art\.)\s+\d+[a-z]?\s+(?:des|der)\b[^()]*\)\s*$", "", t)
+    return re.sub(r"\s+[-–]\s*$", "", t).strip()
 
 
 def summarize(law: Law) -> LawInfo:
@@ -84,7 +93,7 @@ STEM_SUFFIXES = ("es", "en", "em", "er", "s", "e", "n")
 
 
 def stem(word: str) -> str:
-    w = word.lower().strip(".,;:()„“\"")
+    w = word.lower().strip(".,;:()„“\"").replace("ß", "ss")  # alte Schreibung „Zivilprozeßordnung“
     if len(w) > 4:
         for suf in STEM_SUFFIXES:
             if w.endswith(suf) and len(w) - len(suf) >= 4:

@@ -12,6 +12,7 @@ import re
 
 from . import gii
 from .gii import Absatz, Heading, Img, ListBlock, Para, Pre, Table
+from .laws import display_title
 from .text import Inline, ends_sentence, esc, split_sentences
 
 SITE = "https://fsr-jura-halle.de"
@@ -85,7 +86,7 @@ class Site:
 <a class="skip" href="#main">Zum Inhalt springen</a>
 <header class="site-head">
   <div class="head-in">
-    <a class="brand" href="{self.base}" aria-label="Normfinder – Startseite"><img src="{self.base}assets/logo.svg" alt="" width="46" height="46"><span class="brand-t"><b>Normfinder</b><small>FSR Jura Halle</small></span></a>
+    <a class="brand" href="{self.base}" aria-label="Normfinder – Startseite"><img src="{self.base}assets/logo.png" alt="" width="46" height="46"><span class="brand-t"><b>Normfinder</b><small>FSR Jura Halle</small></span></a>
     {search_html}
     <nav class="head-nav" aria-label="Weitere Seiten"><a class="fsr-link" href="{FSR}/">Zur FSR-Website</a><button class="theme-btn" type="button" hidden aria-label="Farbschema wechseln" title="Hell/Dunkel"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button></nav>
   </div>
@@ -276,7 +277,7 @@ class Site:
             notes = f'<details class="notes"{" open" if not law.norms else ""}><summary>Hinweise zum Textnachweis</summary>' + "".join(
                 f"<p>{esc(t)}</p>" for t in law.notes) + "</details>"
         gone = sum(1 for x in law.norms if x.gone)
-        full = law.title if law.title != info.abk else law.short
+        full = display_title(law.title) if law.title != info.abk else law.short
         tools = "" if len(law.units) < 3 else '<div class="toc-tools js-only"><button class="btn" type="button" data-toc="open">Alle aufklappen</button><button class="btn" type="button" data-toc="close">Alle zuklappen</button></div>'
         main = f"""<section class="toc">
   <nav class="crumbs" aria-label="Pfad"><a href="{self.base}gesetze/">Gesetze</a><a href="{self.base}gesetze/{letter_of(info)}/">{letter_of(info).upper()}</a></nav>
@@ -379,7 +380,7 @@ class Site:
                              canonical=self.base + "gesetze/", kind="az",
                              description="Alle Bundesgesetze und -verordnungen von A bis Z")
         items = "".join(
-            f'<li><a href="{self.law_url(i.slug)}"><b>{esc(i.abk)}</b><span>{esc(i.title)}</span></a></li>'
+            f'<li><a href="{self.law_url(i.slug)}"><b>{esc(i.abk)}</b><span>{esc(display_title(i.title))}</span></a></li>'
             for i in letters[letter])
         lab = letter.upper() if letter != "0" else "0–9"
         body = f"""<section class="az"><nav class="crumbs" aria-label="Pfad"><a href="{self.base}gesetze/">Gesetze</a></nav>
@@ -448,7 +449,7 @@ def short_name(info) -> str:
     for a in info.aliases:
         if not is_abbrev(a):
             return a
-    t = re.sub(r"\s*\([^)]*\)\s*$", "", info.title)
+    t = re.sub(r"\s*\([^)]*\)\s*$", "", display_title(info.title))
     return t if len(t) < 70 else t[:67] + "…"
 
 

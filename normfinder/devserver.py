@@ -13,7 +13,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, root: Path, base: str, **kw):
         self.site_root = root
         self.base = base
-        super().__init__(*args, directory=str(root), **kw)
+        super().__init__(*args, directory=str(root.resolve()), **kw)
 
     def log_message(self, fmt, *args):  # ruhig
         pass
@@ -26,9 +26,10 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if rel in (".", ""):
             rel = ""
         cand = [rel, rel + ".html", posixpath.join(rel, "index.html")]
+        root = self.site_root.resolve()  # „current“ bei jeder Anfrage neu auflösen (wie Caddy)
         for c in cand:
-            p = (self.site_root / c).resolve()
-            if str(p).startswith(str(self.site_root.resolve())) and p.is_file():
+            p = (root / c).resolve()
+            if str(p).startswith(str(root)) and p.is_file():
                 return p
         return None
 
@@ -59,7 +60,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 
 def serve(root: Path, port: int, base: str = "/normfinder/"):
-    root = root.resolve()
+    root = root.absolute()
     httpd = http.server.ThreadingHTTPServer(("127.0.0.1", port), partial(Handler, root=root, base=base))
     print(f"Normfinder läuft auf http://127.0.0.1:{port}{base}  (Strg+C beendet)")
     httpd.serve_forever()

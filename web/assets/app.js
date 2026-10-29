@@ -458,8 +458,8 @@ function init() {
     });
   }
   if (PAGE === "search") { searchPage(); window.addEventListener("popstate", searchPage); }
-  // Gesetzesverzeichnis im Leerlauf vorladen (kleine Datei, danach aus dem Cache)
-  (window.requestIdleCallback || setTimeout)(() => regReady().catch(() => {}), { timeout: 2000 });
+  // Das Gesetzesverzeichnis (data/laws.json) lädt erst, wenn jemand das Suchfeld benutzt.
+  document.querySelectorAll(".search input").forEach(i => i.addEventListener("keydown", () => regReady().catch(() => {}), { once: true }));
 }
 
 init();

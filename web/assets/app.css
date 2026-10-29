@@ -236,7 +236,7 @@ html.js .theme-btn[hidden] { display: grid; }
 .rail h2 { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--faint); font-weight: 600; margin: 0 0 10px; }
 .rail .path { display: grid; gap: 8px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
 .rail .path a { color: var(--muted); text-decoration: none; display: block; line-height: 1.35; }
-.rail .path a b { display: block; color: var(--ink); font-weight: 600; font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; }
+.rail .path a b { display: block; color: var(--ink); font-weight: 600; font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; overflow-wrap: anywhere; }
 .rail .path a:hover b { color: var(--accent); }
 .rail ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
 .rail ol a { display: grid; grid-template-columns: 4.4em minmax(0, 1fr); gap: 6px; padding: 5px 8px; border-radius: 6px;

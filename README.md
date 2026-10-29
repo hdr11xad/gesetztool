@@ -4,7 +4,7 @@ Ein offenes, werbefreies Werkzeug zum Nachschlagen von Normen: `573 bgb`
 eingeben, Enter, und man landet bei § 573 BGB, mit markiertem Absatz, Satz
 oder Nummer. Enthalten sind alle Bundesgesetze und -verordnungen von
 [gesetze-im-internet.de](https://www.gesetze-im-internet.de/), jede Nacht
-aktualisiert. Läuft unter <https://fsr-jura-halle.de/normfinder/> als
+aktualisiert – derzeit 6.147 Gesetze und Verordnungen mit 108.181 Normen. Läuft unter <https://fsr-jura-halle.de/normfinder/> als
 eigenständige statische Seite neben WordPress.
 
 - Jede Norm hat eine echte, teilbare Adresse: `/normfinder/bgb/573#abs-2-nr-1`
@@ -19,6 +19,8 @@ eigenständige statische Seite neben WordPress.
 **Einrichtung auf dem Server:** [docs/SERVER.md](docs/SERVER.md) ·
 **Verlinkung in WordPress:** [docs/WORDPRESS.md](docs/WORDPRESS.md) ·
 **Gestaltung:** [docs/DESIGN.md](docs/DESIGN.md)
+
+![Normseite § 573 BGB](docs/screenshots/norm-bgb-573.png)
 
 ---
 
