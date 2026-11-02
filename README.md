@@ -18,7 +18,8 @@ eigenständige statische Seite neben WordPress.
 
 **Einrichtung auf dem Server:** [docs/SERVER.md](docs/SERVER.md) ·
 **Verlinkung in WordPress:** [docs/WORDPRESS.md](docs/WORDPRESS.md) ·
-**Gestaltung:** [docs/DESIGN.md](docs/DESIGN.md)
+**Gestaltung:** [docs/DESIGN.md](docs/DESIGN.md) ·
+**Desktop-App (Flatpak):** [docs/FLATPAK.md](docs/FLATPAK.md)
 
 ![Normseite § 573 BGB](docs/screenshots/norm-bgb-573.png)
 

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Normfinder
+GenericName=Gesetze nachschlagen
+Comment=Bundesgesetze schnell nachschlagen – offline, ohne Werbung und Tracking
+Exec=normfinder
+Icon=de.fsr_jura_halle.Normfinder
+Terminal=false
+Categories=Office;Education;
+Keywords=Gesetz;Gesetze;Norm;Paragraf;Paragraph;BGB;StGB;GG;ZPO;Jura;Recht;Jurastudium;
+StartupNotify=true

@@ -1,0 +1,37 @@
+# Flatpak-Manifest des Normfinders.
+# Bauen:   flatpak-builder --user --install --force-clean build-dir flatpak/de.fsr_jura_halle.Normfinder.yml
+# Anleitung: docs/FLATPAK.md
+app-id: de.fsr_jura_halle.Normfinder
+runtime: org.gnome.Platform
+runtime-version: '50'
+sdk: org.gnome.Sdk
+command: normfinder
+finish-args:
+  - --share=network        # Gesetze von gesetze-im-internet.de laden
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+modules:
+  - name: normfinder
+    buildsystem: simple
+    build-commands:
+      - install -d /app/share/normfinder
+      - cp -r normfinder web data LICENSE /app/share/normfinder/
+      - rm -rf /app/share/normfinder/normfinder/__pycache__
+      - python3 -m compileall -q /app/share/normfinder/normfinder
+      - install -Dm755 desktop/normfinder-desktop.py /app/bin/normfinder
+      - install -Dm644 desktop/de.fsr_jura_halle.Normfinder.desktop /app/share/applications/de.fsr_jura_halle.Normfinder.desktop
+      - install -Dm644 desktop/de.fsr_jura_halle.Normfinder.metainfo.xml /app/share/metainfo/de.fsr_jura_halle.Normfinder.metainfo.xml
+      - install -Dm644 desktop/de.fsr_jura_halle.Normfinder.svg /app/share/icons/hicolor/scalable/apps/de.fsr_jura_halle.Normfinder.svg
+    sources:
+      - type: dir
+        path: ..
+        skip:
+          - .git
+          - .flatpak-builder
+          - build-dir
+          - repo
+          - tests
+          - docs
+          - node_modules

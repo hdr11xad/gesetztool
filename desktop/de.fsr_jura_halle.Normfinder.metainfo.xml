@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>de.fsr_jura_halle.Normfinder</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>EUPL-1.2</project_license>
+  <name>Normfinder</name>
+  <summary>Bundesgesetze schnell nachschlagen</summary>
+  <developer id="de.fsr-jura-halle">
+    <name>Fachschaftsrat Jura der Martin-Luther-Universität Halle-Wittenberg</name>
+  </developer>
+  <description>
+    <p>
+      Der Normfinder zeigt alle Bundesgesetze und Rechtsverordnungen von gesetze-im-internet.de
+      so schnell, wie man im Gutachten zitiert: „573 bgb“ eingeben, Enter, und man ist bei § 573 BGB,
+      mit markiertem Absatz, Satz oder Nummer.
+    </p>
+    <ul>
+      <li>Alle Bundesgesetze offline, täglich aktualisiert</li>
+      <li>Versteht Zitierweisen wie „§ 573 Abs. 2 Nr. 1 BGB“, „573 II 1 bgb“ oder „art 1 gg“</li>
+      <li>Satznummern, Verweise als Links, Volltextsuche</li>
+      <li>Ohne Werbung, Tracking und Cookies</li>
+    </ul>
+    <p>
+      Keine Rechtsberatung. Maßgeblich ist die amtliche Fassung. Quelle: Bundesministerium der Justiz,
+      gesetze-im-internet.de.
+    </p>
+  </description>
+  <launchable type="desktop-id">de.fsr_jura_halle.Normfinder.desktop</launchable>
+  <url type="homepage">https://github.com/hdr11xad/gesetztool</url>
+  <url type="bugtracker">https://github.com/hdr11xad/gesetztool/issues</url>
+  <categories>
+    <category>Office</category>
+    <category>Education</category>
+  </categories>
+  <keywords>
+    <keyword>Gesetz</keyword>
+    <keyword>BGB</keyword>
+    <keyword>Jura</keyword>
+  </keywords>
+  <requires>
+    <internet>first-run</internet>
+  </requires>
+  <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="1.0.0" date="2026-11-02">
+      <description>
+        <p>Erste Desktop-Version.</p>
+      </description>
+    </release>
+  </releases>
+</component>

@@ -86,7 +86,7 @@ def cmd_update(a):
             log.info("Keine Änderungen – der aktuelle Stand bleibt.")
             notify(True, "keine Änderungen")
             return 0
-        stats = B.build(cache, root, base=a.base, workers=a.workers)
+        stats = B.build(cache, root, base=a.base, workers=a.workers, keep=a.keep)
         msg = f"{stats['laws']} Gesetze, {stats['norms']} Normen, {len(stats['errors'])} Fehler, {f.stats['updated']} aktualisiert"
         notify(True, msg)
         if stats["errors"]:
@@ -106,7 +106,8 @@ def cmd_fetch(a):
 
 def cmd_build(a):
     only = a.only.split(",") if a.only else None
-    stats = B.build(a.cache, a.root, base=a.base, only=only, workers=a.workers, check=not a.no_check)
+    stats = B.build(a.cache, a.root, base=a.base, only=only, workers=a.workers, check=not a.no_check,
+                    keep=a.keep)
     print(json.dumps({k: v for k, v in stats.items() if k != "errors"}, ensure_ascii=False))
     return 0
 
@@ -145,6 +146,8 @@ def main(argv=None):
     p.add_argument("--workers", type=int, default=int(os.environ.get("NORMFINDER_WORKERS", "0")) or None)
     p.add_argument("--interval", type=float, default=float(os.environ.get("NORMFINDER_INTERVAL", "0.3")),
                    help="Mindestabstand zwischen zwei Downloads in Sekunden")
+    p.add_argument("--keep", type=int, default=int(os.environ.get("NORMFINDER_KEEP", "3")),
+                   help="so viele Stände aufheben (Rückfall)")
     p.add_argument("-v", "--verbose", action="store_true")
     sub = p.add_subparsers(dest="cmd", required=True)
     s = sub.add_parser("update")
