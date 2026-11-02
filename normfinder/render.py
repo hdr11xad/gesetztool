@@ -239,7 +239,7 @@ class Site:
             items.append(f'<li><a href="{self.norm_url(law.slug, x.id)}"{cur}{cls}><span>{esc(x.label)}</span><span>{esc(x.title)}</span></a></li>')
         if hi < len(sib):
             items.append(f'<li class="more"><a href="{lu}#g-{n.unit}" aria-label="Weitere Normen in der Gliederung">…</a></li>')
-        return (f'<aside class="rail" aria-label="Gliederung"><h2>Gliederung</h2>'
+        return (f'<aside class="rail" aria-label="Gliederung"><h2>Gliederung des {esc(self.reg.get(law.slug).abk)}</h2>'
                 f'<div class="path">{path_html}</div><ol>{"".join(items)}</ol>'
                 f'<a class="all" href="{lu}">Gesamte Gliederung des {esc(self.reg.get(law.slug).abk)}</a></aside>')
 
@@ -308,8 +308,8 @@ class Site:
         count = len(self.reg.by_slug)
         main = f"""<section class="hero">
   <div class="hero-in">
-    <h1>Norm eintippen, <em>Enter</em>, fertig.</h1>
-    <p class="lede">Alle {count:,} Bundesgesetze und -verordnungen, so schnell aufgerufen, wie man im Gutachten zitiert. Der Normfinder springt direkt an die richtige Stelle und markiert Absatz, Satz oder Nummer.</p>
+    <h1>Jede Norm. <em>Sofort.</em></h1>
+    <p class="lede">Das gesamte Bundesrecht an einem Ort: schnell gefunden, übersichtlich dargestellt und jeden Tag aktuell. Kostenlos, werbefrei und ohne Tracking – vom Fachschaftsrat Jura Halle.</p>
     {self.search_form(big=True, autofocus=True)}
     <ul class="chips" aria-label="Beispiele">{chips}</ul>
   </div>

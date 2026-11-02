@@ -293,6 +293,35 @@ function fallbackCopy(val, done) {
   setTimeout(() => ta.remove(), 50);
 }
 
+/* ---------------------------------------------------------------- Seitenleiste: ganzes Gesetz */
+// Ohne JavaScript zeigt die Seitenleiste den Abschnitt rund um die Norm. Mit
+// JavaScript wird daraus die vollständige Gliederung des Gesetzes (aus
+// <gesetz>/index.json), frei scrollbar, die aktuelle Norm in der Mitte.
+async function fullRail() {
+  const rail = document.querySelector(".rail");
+  const list = rail && rail.querySelector("ol");
+  if (!list || !CTX_LAW) return;
+  let idx;
+  try { idx = await lawIndex(CTX_LAW); } catch (e) { return; }
+  const lawUrl = `${BASE}${CTX_LAW}/`;
+  const byFirst = new Map();
+  idx.units.forEach((u, i) => { if (!byFirst.has(u[3])) byFirst.set(u[3], []); byFirst.get(u[3]).push([i, u]); });
+  const unitHtml = j => (byFirst.get(j) || []).map(([i, u]) =>
+    `<li class="u d${Math.min(u[0], 6)}"><a href="${lawUrl}#g-${i}"><b>${esc(u[1])}</b>${u[2] ? " " + esc(u[2]) : ""}</a></li>`).join("");
+  let html = "";
+  idx.norms.forEach((n, j) => {
+    html += unitHtml(j);
+    const cur = n[0] === CTX_NORM ? ' aria-current="page"' : "";
+    html += `<li><a href="${normHref(CTX_LAW, n[0])}"${cur}${n[4] ? ' class="gone-l"' : ""}><span>${esc(n[1])}</span><span>${esc(n[2] || (n[4] ? "(weggefallen)" : ""))}</span></a></li>`;
+  });
+  html += unitHtml(idx.norms.length);
+  list.innerHTML = html;
+  list.classList.add("full");
+  rail.querySelector(".all")?.remove();
+  const cur = list.querySelector('[aria-current="page"]');
+  if (cur) rail.scrollTop = cur.offsetTop - rail.clientHeight / 2 + cur.offsetHeight / 2;
+}
+
 /* ---------------------------------------------------------------- Gliederungsseite */
 function tocTarget() {
   const h = location.hash.slice(1);
@@ -448,6 +477,7 @@ function init() {
     highlight();
     window.addEventListener("hashchange", highlight);
     wireCopy();
+    fullRail();
   }
   if (PAGE === "toc") {
     tocTarget();

@@ -221,6 +221,23 @@ test("Ohne JavaScript: Normtext, Links und Zielmarkierung per :target", async ()
   await page.context().close();
 });
 
+test("Seitenleiste zeigt das ganze Gesetz, aktuelle Norm im Blick", async () => {
+  const page = await open("bgb/573");
+  await page.waitForSelector(".rail ol.full");
+  const links = await page.locator(".rail ol.full li:not(.u) a").count();
+  assert.ok(links > 2000, `nur ${links} Normen in der Seitenleiste`);
+  assert.ok(await page.locator(".rail ol.full a[href='/normfinder/bgb/1']").count() === 1);
+  assert.ok(await page.locator(".rail ol.full a[href='/normfinder/bgb/2385']").count() === 1);
+  assert.ok(await page.locator(".rail .u a[href='/normfinder/bgb/#g-0']").count() === 1);
+  const inView = await page.evaluate(() => {
+    const rail = document.querySelector(".rail"), cur = rail.querySelector('[aria-current="page"]');
+    const r = rail.getBoundingClientRect(), c = cur.getBoundingClientRect();
+    return c.top >= r.top && c.bottom <= r.bottom;
+  });
+  assert.ok(inView, "aktuelle Norm ist in der Seitenleiste sichtbar");
+  await page.context().close();
+});
+
 test("Barrierearmut: Sprungmarke, Überschriften, sichtbarer Fokus", async () => {
   const page = await open("bgb/573");
   await page.keyboard.press("Tab");
